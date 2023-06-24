@@ -1,4 +1,4 @@
-# hello-kubernetes
+# hello-rhoic      
 Nginx test container based on UBI8
 
 ## How to build
