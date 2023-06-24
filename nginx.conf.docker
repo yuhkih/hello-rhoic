@@ -2,12 +2,11 @@
 #   * Official English Documentation: http://nginx.org/en/docs/
 #   * Official Russian Documentation: http://nginx.org/ru/docs/
 
-# user nginx;  (1) OpenShift doesn't allow to use a specific user.
+user nginx;
 worker_processes auto;
 # error_log /var/log/nginx/error.log;
-error_log /dev/stderr;   # (2) Kubernetes manner. Error log to stderr
-# pid /run/nginx.pid;
-pid /tmp/nginx.pid;  # (3) OpenShift doesn't allow to access /run/ with default.  Create pid file in /tmp file so that no privilage is required.
+error_log /dev/stderr; #(1) stderrに出力先を変更
+pid /run/nginx.pid;
 
 # Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
 include /usr/share/nginx/modules/*.conf;
@@ -21,7 +20,7 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
-    access_log  /dev/stdout  main; #(4) Kubernetes manner. Standard out to stdout
+    access_log  /dev/stdout  main; #(2) stdoutに出力先を変更する
 
     sendfile            on;
     tcp_nopush          on;
